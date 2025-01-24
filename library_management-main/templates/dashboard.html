@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="flash-message flash-message-green">
+                <strong>{{ message }}</strong>
+                <button onclick="this.parentElement.style.display='none';">X</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <header>
+        <h1 class="name">Welcome, {{ member_username }}</h1>
+    </header>
+    <main>
+        <h2 style="color:#fffc58;">Available Books</h2>
+        <ul>
+            {% for book in books %}
+                <li>
+                    {{ book['title'] }} by {{ book['author'] }}
+                    {% if book['is_booked'] == 0 %}
+                        <a href="/book/{{ book['id'] }}">Book</a>
+                    {% else %}
+                        (Booked)
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+    <div class="nav-links">
+        <a href="/">Back to Home</a>
+        <a href="/logout">Logout</a>
+    </div>
+</body>
+</html>

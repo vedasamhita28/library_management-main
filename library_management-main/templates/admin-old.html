@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Portal</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body class="admin-actions">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="flash-message flash-message-green">
+                <strong>{{ message }}</strong>
+                <button onclick="this.parentElement.style.display='none';">X</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <header>
+        <h1 class="name">Welcome, {{ admin_username }}</h1>
+    </header>
+    <main>
+        <h2 style="color:#fffc58;">Booked Books</h2>
+        <form method="POST">
+            <ul>
+                {% for book in books %}
+                    <li>
+                        <b>Book Name: </b> {{ book['title'] }} by {{ book['author'] }} <br>
+                        <b> Booked By: </b> Member ID: {{ book['booked_by'] }} User Name: {{book['username']}}<br>
+                        <button type="submit" name="book_id" value="{{ book['id'] }}">Unbook</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </form>
+        
+    </main>
+    <div class="nav-links">
+        <a href="/">Back to Home</a>
+        <a href="/admin/logout">Logout</a>
+    </div>
+</body>
+</html>

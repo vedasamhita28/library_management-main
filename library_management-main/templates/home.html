@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Library Management</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="flash-message">
+                <strong>{{ message }}</strong>
+                <button onclick="this.parentElement.style.display='none';">X</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <header>
+        <h1 class="name">Welcome to the Library</h1>
+    </header>
+    <main>
+        <div class="home-links">
+            <a href="/login">Login as Member</a>
+            <a href="/admin">Admin</a>
+        </div>
+    </main>
+    <footer>
+        &copy; 2024 Library Management System
+    </footer>
+</body>
+</html>
